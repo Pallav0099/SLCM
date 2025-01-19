@@ -1,0 +1,41 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>Student Profile</title>
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <h1>Student Profile</h1>
+        </header>
+        <nav>
+            <a href="index.html" class="btn">Home</a>
+            <a href="courses.html" class="btn">Courses</a>
+            <a href="logout.html" class="btn">Logout</a>
+        </nav>
+    </div>
+
+    <div class="profile-container">
+        <h2>Welcome, {{ name }}</h2>
+
+        <div class="student-details">
+            <h3>Your Details</h3>
+            <p><strong>Name:</strong> {{ name }}</p>
+            <p><strong>Student ID:</strong> {{ sid }}</p>
+            <p><strong>Branch:</strong> {{ branch }}</p>
+            <p><strong>Section:</strong> {{ section }}</p>
+            <p><strong>Semester:</strong> {{ semester }}th</p>
+            <p><strong>Date of Birth:</strong> {{ dob }}</p>
+            <p><strong>Gender:</strong> {{ gender }}</p>
+            <p><strong>Student ID:</strong> {{ sid }}</p>
+            <p><strong>Email:</strong> {{ email }}</p>
+            <p><strong>phone_number:</strong> {{ phone_number }}</p>
+            <p><strong>enrollment_date:</strong> {{ enrollment_date }}</p>
+            <p><strong>Address:</strong> {{ address }}</p>
+        </div>
+    </div>
+</body>
+</html>

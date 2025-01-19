@@ -1,0 +1,45 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
+    <title>Courses</title>
+</head>
+<body>
+    <div class="header-container">
+        <header>
+            <h1>Courses</h1>
+        </header>
+        <nav>
+            <a href="dashboard" class="btn">Dashboard</a>
+            <a href="logout" class="btn">Logout</a>
+        </nav>
+    </div>
+
+    <div class="courses-container">
+        <h2>Courses for {{ semester }} Semester, {{ branch }}</h2>
+
+        {% if courses %}
+            <div class="card-deck">
+                {% for course in courses %}
+                    <div class="card">
+                        <img src="course_image.jpg" alt="Course Image" class="card-img">
+                        <div class="card-body">
+                            <h3 class="card-title">{{ course.course_name }}</h3>
+                            <p class="card-text">{{ course.description }}</p>
+                            <small>Course ID: {{ course.course_id }}</small>
+                        </div>
+                    </div>
+                {% endfor %}
+            </div>
+        {% else %}
+            <p>No courses found for your branch and semester.</p>
+        {% endif %}
+    </div>
+
+    <footer>
+        <p>&copy; 2025 Student Portal. All Rights Reserved.</p>
+    </footer>
+</body>
+</html>
