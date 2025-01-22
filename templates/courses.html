@@ -1,0 +1,83 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <title>Courses</title>
+</head>
+
+<body>
+    <div class="header-container">
+        <header>
+            <h1>Courses</h1>
+        </header>
+        <nav>
+            <a href="dashboard" class="btn">Dashboard</a>
+            <a href="logout" class="btn">Logout</a>
+        </nav>
+    </div>
+
+    <div class="body-centered-div">
+        {% if courses %}
+        <h2>Courses for Semester</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Course ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Credits</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in courses %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ course.cid }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.credits }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>No courses found for your branch and semester.</p>
+        {% endif %}
+        {% if student_elective_courses %}
+        <h2>Your Selected Elective Courses</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Course ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Credits</th>
+                    <th scope="col">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in student_elective_courses %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ course.course_id }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.credits }}</td>
+                    <td>{{ course.category }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Update your elective courses first!</p>
+        {% endif %}
+        <div style="padding-left: 8vw;">
+            <a href="{{ url_for('pick_elective_courses') }}"><button type="button" class="btn-pages">Pick Elective Courses</button></a>
+          </div>
+    </div>
+</body>
+
+</html>
