@@ -183,11 +183,111 @@ def student():
         flash('Please log in first.', 'danger')
         return redirect(url_for('login'))
 
-#@app.route('/update_profile', methods=['GET', 'POST'])
-#def update_profile():
-#    if 'sid' in session:
-#        if request.method == 'POST':
-#        request.form('password')
+@app.route('/update_profile', methods=['GET', 'POST'])
+def update_profile():
+    if 'user' in session:
+        sid = session['sid']
+        password = phone_number = address = semester = None  # Initialize the variables
+        if request.method == 'POST':
+            password = request.form.get('password', '')
+            phone_number = request.form.get('phone_number', '')
+            address = request.form.get('address', '')
+            semester = request.form.get('semester', '')
+            sid = session.get('sid')
+
+        conn = get_db_connection()
+        if conn is None:
+            flash('Database connection failed!', 'danger')
+            return redirect(url_for('dashboard'))
+
+        cursor = conn.cursor()
+        
+        # Initialize fields to hold the values for update, only if they're not empty
+        update_fields = []
+        update_values = []
+        
+        if password:
+            update_fields.append("password = %s")
+            update_values.append(password)
+        if phone_number:
+            update_fields.append("phone_number = %s")
+            update_values.append(phone_number)
+        if address:
+            update_fields.append("address = %s")
+            update_values.append(address)
+        if semester:
+            update_fields.append("semester = %s")
+            update_values.append(semester)
+
+        if update_fields:
+            query = f"""
+                UPDATE students
+                SET {', '.join(update_fields)}
+                WHERE sid = %s
+            """
+            update_values.append(sid)
+            
+            try:
+                cursor.execute(query, tuple(update_values))
+                conn.commit()
+                flash('Profile updated successfully!', 'success')
+            except mysql.connector.Error as err:
+                print(f"Database Update Error: {err}")
+                flash('Profile update failed due to a database error.', 'danger')
+        else:
+            flash('No fields were updated.', 'warning')
+            return render_template('update_profile.html')
+        return redirect(url_for('dashboard'))
+
+@app.route('/pick_elective_courses', methods=['GET', 'POST'])
+def pick_elective_courses():
+    if 'sid' in session:
+        sid = session.get('sid')
+
+        conn = get_db_connection()
+        if conn is None:
+            flash('Database connection failed!', 'danger')
+            return redirect(url_for('dashboard'))
+
+        cursor = conn.cursor()
+
+        cursor.execute("SELECT * FROM student_elective_courses WHERE sid = %s", (sid,))
+        result = cursor.fetchall()
+
+        if result:
+            flash('You have already selected your elective courses. Changes are not allowed.', 'danger')
+            return redirect(url_for('courses'))
+
+        if request.method == 'POST':
+            flexi_core_2 = request.form.get('flexi_core_2', '')
+            program_elective_1 = request.form.get('program_elective_1', '')
+
+            if not flexi_core_2 or not program_elective_1:
+                flash('Both elective courses must be selected.', 'warning')
+                return render_template('pick_elective_courses.html')
+
+            flexi_core_2_data = flexi_core_2.split(',')
+            program_elective_1_data = program_elective_1.split(',')
+
+            try:
+                query = """
+                    INSERT INTO student_elective_courses (sid, category, course_id, course_name)
+                    VALUES (%s, %s, %s, %s)
+                """
+                cursor.execute(query, (sid, flexi_core_2_data[0], flexi_core_2_data[1], flexi_core_2_data[2]))
+                cursor.execute(query, (sid, program_elective_1_data[0], program_elective_1_data[1], program_elective_1_data[2]))
+                conn.commit()
+                flash('Elective courses selected successfully!', 'success')
+            except mysql.connector.Error as err:
+                print(f"Database Insert Error: {err}")
+                flash('Failed to select elective courses due to a database error.', 'danger')
+                conn.rollback()
+
+        return redirect(url_for('courses'))
+
+    flash('Unauthorized access. Please log in.', 'danger')
+    return redirect(url_for('login'))
+
 
 @app.route('/courses', methods=['GET', 'POST'])
 def courses():
@@ -213,7 +313,7 @@ def courses():
             courses = cursor.fetchall()
 
             # Query for elective courses
-            elective_courses_query = "SELECT cid, course_name, credits, category FROM student_elective_courses WHERE sid = %s"
+            elective_courses_query = "SELECT course_id, course_name, credits, category FROM student_elective_courses WHERE sid = %s"
             cursor.execute(elective_courses_query, (sid,))
             student_elective_courses = cursor.fetchall()
         except mysql.connector.Error as err:
@@ -224,7 +324,7 @@ def courses():
             cursor.close()
             conn.close()
 
-        return render_template('courses.html', courses=courses, elective_courses=elective_courses)
+        return render_template('courses.html', courses=courses, student_elective_courses=student_elective_courses)
     else:
         flash('Please log in first.', 'danger')
         return redirect(url_for('login'))
