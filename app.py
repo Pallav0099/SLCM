@@ -257,7 +257,7 @@ def pick_elective_courses():
         if result:
             flash('You have already selected your elective courses. Changes are not allowed.', 'danger')
             return redirect(url_for('courses'))
-
+        
         if request.method == 'POST':
             flexi_core_2 = request.form.get('flexi_core_2', '')
             program_elective_1 = request.form.get('program_elective_1', '')
@@ -283,10 +283,10 @@ def pick_elective_courses():
                 flash('Failed to select elective courses due to a database error.', 'danger')
                 conn.rollback()
 
-        return redirect(url_for('courses'))
-
-    flash('Unauthorized access. Please log in.', 'danger')
-    return redirect(url_for('login'))
+        return render_template('pick_elective_courses.html') #changed it from render_template('courses') to the current statement and it worked.
+    else:
+        flash('You must be logged in to select elective courses.', 'danger')
+        return redirect(url_for('login'))
 
 
 @app.route('/courses', methods=['GET', 'POST'])
