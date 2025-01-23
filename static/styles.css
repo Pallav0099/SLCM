@@ -18,8 +18,15 @@ body {
     margin: 20px auto;
     border-radius: 10px;
     width: 90%;
-    max-width: 1400px;
+    max-width: 95vw;
     box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
+}
+.body-container-main {
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 95vw;
 }
 
 header {
@@ -28,9 +35,8 @@ header {
 }
 
 header h1 {
-    font-family: 'Caveat', cursive;
     color: #333;
-    font-size: 2.5em;
+    font-size: 1.5em;
 }
 
 /* Navigation Styles */
@@ -41,23 +47,37 @@ nav {
     flex-wrap: wrap;
 }
 
-.btn {
+.btn-header {
     background-color: #D4F6FF;
     color: #333;
     border: none;
     padding: 10px 20px;
-    border-radius: 20px;
+    border-radius: 10px;
     cursor: pointer;
     transition: all 0.3s;
     font-size: 1em;
     box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
 }
 
-.btn:hover {
+.btn-header:hover {
     background-color: #FFDDDD;
     cursor:hand2;
 }
-
+.btn-pages {
+    background-color: #d4f6ff;
+    color: #333;
+    border: none;
+    padding: 10px 20px;
+    border-radius: 10px;
+    cursor: pointer;
+    transition: all 0.3s;
+    font-size: 1em;
+    box-shadow: 0 2px 4px rgba(0, 0, 0, 0.1);
+}
+.btn-pages:hover {
+    background-color: #FFDDDD;
+    cursor:hand2;
+}
 /* Card Deck */
 .card-deck {
     display: flex;
@@ -67,7 +87,6 @@ nav {
 }
 
 .card {
-    background-color: #D4F6FF;
     border-radius: 10px;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
     width: 300px;
@@ -90,7 +109,6 @@ nav {
 }
 
 .card-title {
-    font-family: 'Libre Baskerville', serif;
     color: #333;
     font-size: 1.3em;
     margin-bottom: 10px;
@@ -157,6 +175,14 @@ nav {
 
 .btn-login:hover {
     background-color: #FFDDDD;
+}
+.body-centered-div {
+    padding: 20px;
+    margin: 20px auto;
+    border-radius: 10px;
+    width: 90%;
+    max-width: 95vw;
+    box-shadow: 0 4px 10px rgba(0, 0, 0, 0.1);
 }
 
 footer {
