@@ -1,45 +1,97 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <link rel="stylesheet" href="../static/styles.css">
     <title>Courses</title>
+    <link rel="stylesheet" href="../static/styles.css">
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="header-container">
         <header>
             <h1>Courses</h1>
         </header>
         <nav>
-            <a href="dashboard" class="btn">Dashboard</a>
-            <a href="logout" class="btn">Logout</a>
+            <a href="{{ url_for('dashboard') }}"><button type="button" class="btn-header">Home</button></a>
+            <a href="{{ url_for('student') }}"><button type="button" class="btn-header">Your Profile</button></a>
+            <a href="#"><button type="button" class="btn-header">Attendance Summary</button></a>
+            <a href="./clubs.html"><button type="button" class="btn-header">Clubs & Societies</button></a>
+            <a href="{{ url_for('logout') }}"><button type="button" class="btn-header">Logout</button></a>
         </nav>
     </div>
 
-    <div class="courses-container">
-        <h2>Courses for {{ semester }} Semester, {{ branch }}</h2>
-
+    <div class="body-centered-div">
         {% if courses %}
-            <div class="card-deck">
+        <h2>Courses for Semester</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Course ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Credits</th>
+                </tr>
+            </thead>
+            <tbody>
                 {% for course in courses %}
-                    <div class="card">
-                        <img src="course_image.jpg" alt="Course Image" class="card-img">
-                        <div class="card-body">
-                            <h3 class="card-title">{{ course.course_name }}</h3>
-                            <p class="card-text">{{ course.description }}</p>
-                            <small>Course ID: {{ course.course_id }}</small>
-                        </div>
-                    </div>
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ course.cid }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.credits }}</td>
+                </tr>
                 {% endfor %}
-            </div>
+            </tbody>
+        </table>
         {% else %}
-            <p>No courses found for your branch and semester.</p>
+        <p>No courses found for your branch and semester.</p>
         {% endif %}
+        {% if student_elective_courses %}
+        <h2>Your Selected Elective Courses</h2>
+        <table class="table">
+            <thead>
+                <tr>
+                    <th scope="col">#</th>
+                    <th scope="col">Course ID</th>
+                    <th scope="col">Name</th>
+                    <th scope="col">Credits</th>
+                    <th scope="col">Type</th>
+                </tr>
+            </thead>
+            <tbody>
+                {% for course in student_elective_courses %}
+                <tr>
+                    <th scope="row">{{ loop.index }}</th>
+                    <td>{{ course.course_id }}</td>
+                    <td>{{ course.course_name }}</td>
+                    <td>{{ course.credits }}</td>
+                    <td>{{ course.category }}</td>
+                </tr>
+                {% endfor %}
+            </tbody>
+        </table>
+        {% else %}
+        <p>Update your elective courses first!</p>
+        {% endif %}
+        <div style="padding-left: 8vw;">
+            <a href="{{ url_for('pick_elective_courses') }}"><button type="button" class="btn-pages">Pick Elective Courses</button></a>
+        </div>
+            {% with messages = get_flashed_messages(with_categories=true) %}
+             {% if messages %}
+                 <ul class="list-group">
+                     {% for category, message in messages %}
+                         <li class="list-group-item">{{ message }}</li>
+                     {% endfor %}
+                 </ul>
+              {% endif %}
+            {% endwith %}
     </div>
-
-    <footer>
-        <p>&copy; 2025 Student Portal. All Rights Reserved.</p>
-    </footer>
 </body>
+
 </html>
