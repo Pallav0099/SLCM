@@ -1,86 +1,101 @@
 <!DOCTYPE html>
 <html lang="en">
+
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Club Activities - Manipal University Jaipur</title>
+    <title>Clubs & Societies</title>
     <link rel="stylesheet" href="../static/styles.css">
-    <style>
-        .heading{
-            text-align: center;
-        }
-    </style>
+    <link rel="stylesheet" href="../static/bootstrap/css/bootstrap.min.css">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Barlow:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&family=Oswald:wght@200..700&family=Smooch+Sans:wght@100..900&display=swap" rel="stylesheet">
 </head>
+
 <body>
     <div class="header-container">
         <header>
-            <h1>Clubs and Societies</h1>
+            <h1>Clubs & Societies</h1>
         </header>
         <nav>
-            <a href="../templates/index.html" class="btn">Home</a>
-            <a href="#" class="btn">Campus Placement Drive</a>
-            <a href="#" class="btn">Events</a>
-            <a href="#" class="btn">Contact</a>
+            <a href="{{ url_for('dashboard') }}"><button type="button" class="btn-header">Home</button></a>
+            <a href="{{ url_for('student') }}"><button type="button" class="btn-header">Your Profile</button></a>
+            <a href="{{ url_for('courses') }}"><button type="button" class="btn-header">Courses</button></a>
+            <a href="#"><button type="button" class="btn-header">Attendance Summary</button></a>
+            <a href="{{ url_for('logout') }}"><button type="button" class="btn-header">Logout</button></a>
         </nav>
     </div>
 
     <main>
-        <section class="clubs-info">
+        <div class="body-container-main">
             <h2 class="heading">Explore Our Clubs</h2>
-            <p class="heading">Join a club that matches your passion and enhance your college experience through activities, projects, and workshops!</p>
+            <p class="heading">Join a club that matches your passion and enhance your college experience through
+                activities, projects, and workshops!</p>
 
             <div class="card-deck">
                 <!-- IEEE Club -->
-                <div class="card">
-                    <img alt="image" src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo" class="card-img">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo"
+                        class="card-img-top" alt="IEEE Club">
                     <div class="card-body">
                         <h5 class="card-title">IEEE Club</h5>
-                        <p class="card-text">The IEEE Club focuses on technical innovations and organizes various workshops, hackathons, and talks by industry experts.</p>
+                        <p class="card-text">The IEEE Club focuses on technical innovations and organizes various
+                            workshops, hackathons, and talks by industry experts.</p>
                         <p class="card-text"><small class="text-muted">Recent Activity: Robotics Workshop</small></p>
                     </div>
                 </div>
 
                 <!-- InCell -->
-                <div class="card">
-                    <img alt="image" src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo" class="card-img">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo"
+                        class="card-img-top" alt="InCell">
                     <div class="card-body">
                         <h5 class="card-title">InCell</h5>
-                        <p class="card-text">InCell...well i don't really know much about what they do apart from talking to international students so?</p>
-                        <p class="card-text"><small class="text-muted">Recent Activity: BioDesign Challenge</small></p>
+                        <p class="card-text">InCell is focused on fostering connections with international students,
+                            offering opportunities for cultural exchange.</p>
+                        <p class="card-text"><small class="text-muted">Recent Activity: Internship opportunities at Florida University</small></p>
                     </div>
                 </div>
 
                 <!-- Aperture Club -->
-                <div class="card">
-                    <img alt="image" src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo" class="card-img">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo"
+                        class="card-img-top" alt="Aperture Club">
                     <div class="card-body">
                         <h5 class="card-title">Aperture Club</h5>
-                        <p class="card-text">Aperture Club is for photography enthusiasts. Members go on photowalks and host photography contests and exhibitions.</p>
+                        <p class="card-text">Aperture Club is for photography enthusiasts. Members go on photowalks and
+                            host photography contests and exhibitions.</p>
                         <p class="card-text"><small class="text-muted">Recent Activity: Photography Contest</small></p>
                     </div>
                 </div>
 
                 <!-- ACM Club -->
-                <div class="card">
-                    <img alt="image" src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo" class="card-img">
+                <div class="card" style="width: 18rem;">
+                    <img src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo"
+                        class="card-img-top" alt="ACM Club">
                     <div class="card-body">
                         <h5 class="card-title">ACM Club</h5>
-                        <p class="card-text">The ACM Club aims to enhance coding skills with coding sessions, hackathons, and study groups for competitive programming.</p>
+                        <p class="card-text">The ACM Club enhances coding skills with sessions, hackathons, and study
+                            groups for competitive programming.</p>
                         <p class="card-text"><small class="text-muted">Recent Activity: Coding Marathon</small></p>
                     </div>
                 </div>
 
-                <!-- Add other clubs similarly -->
-                <div class="card">
-                    <img alt="image" src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo" class="card-img">
+                <!-- Litmus -->
+                <div class="card" style="width: 18rem;">
+                    <img src="https://fastly.picsum.photos/id/881/200/200.jpg?hmac=34beeNIxYSbYK-_PTy_YXvWyn11npGQSygCM7hjOUFo"
+                        class="card-img-top" alt="Litmus">
                     <div class="card-body">
                         <h5 class="card-title">Litmus</h5>
-                        <p class="card-text">Litmus is our literature club where all the avid readers cross paths, Model UNs, and discussions.</p>
+                        <p class="card-text">Litmus is our literature club where avid readers cross paths, organizing
+                            Model UNs and discussions.</p>
                         <p class="card-text"><small class="text-muted">Recent Activity: MUN</small></p>
                     </div>
                 </div>
             </div>
-        </section>
+
+        </div>
     </main>
 </body>
+
 </html>
